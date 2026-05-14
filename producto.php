@@ -27,7 +27,7 @@ require_once 'includes/header.php';
             <?= htmlspecialchars($producto['emoji']) ?>
         </div>
         
-        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column;">
+        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column;" data-product-id="<?= $producto['id'] ?>" data-product-name="<?= htmlspecialchars($producto['nombre'], ENT_QUOTES) ?>" data-product-price="<?= number_format($producto['precio'], 2, '.', '') ?>" data-product-emoji="<?= htmlspecialchars($producto['emoji'], ENT_QUOTES) ?>" data-product-seller="<?= htmlspecialchars($producto['vendedor'], ENT_QUOTES) ?>" data-product-shipping="Envío gratis">
             <?php if($producto['badge']): ?>
                 <span class="product-badge <?= strtolower($producto['badge']) === 'nuevo' ? 'new' : (strtolower($producto['badge']) === 'hot' ? 'hot' : '') ?>" style="position: static; display: inline-block; width: fit-content; margin-bottom: 1rem;">
                     <?= htmlspecialchars($producto['badge']) ?>

@@ -1,69 +1,85 @@
-CREATE DATABASE IF NOT EXISTS hackathon_shop;
-USE hackathon_shop;
+﻿CREATE DATABASE IF NOT EXISTS marketplace_pi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE marketplace_pi;
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('admin', 'cliente') DEFAULT 'cliente',
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    rol ENUM('admin','vendedor','comprador') NOT NULL DEFAULT 'comprador',
+    blink_galaxy TINYINT(1) NOT NULL DEFAULT 0,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    slug VARCHAR(100) NOT NULL UNIQUE
-);
+    nombre VARCHAR(80) NOT NULL,
+    slug VARCHAR(80) NOT NULL UNIQUE,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS productos (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    categoria_id INT NOT NULL,
     nombre VARCHAR(200) NOT NULL,
     descripcion TEXT,
-    precio DECIMAL(10,2) NOT NULL,
-    precio_original DECIMAL(10,2),
-    descuento INT DEFAULT 0,
+    precio DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    precio_original DECIMAL(10,2) DEFAULT NULL,
+    descuento INT NOT NULL DEFAULT 0,
     stock INT NOT NULL DEFAULT 0,
-    imagen VARCHAR(255),
-    emoji VARCHAR(10),
-    badge VARCHAR(50),
-    categoria_id INT,
-    vendedor VARCHAR(100) DEFAULT 'MercaShop',
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE SET NULL
-);
+    vendedor VARCHAR(120) NOT NULL DEFAULT 'MercaShop',
+    imagen VARCHAR(255) DEFAULT NULL,
+    badge VARCHAR(50) DEFAULT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS pedidos (
+CREATE TABLE IF NOT EXISTS cart_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    session_id VARCHAR(128) NOT NULL,
+    usuario_id INT DEFAULT NULL,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    agregado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY session_producto (session_id, producto_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS ordenes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    total DECIMAL(10,2) NOT NULL,
-    metodo_envio VARCHAR(100) NOT NULL,
-    estado ENUM('pendiente', 'pagado', 'enviado', 'entregado', 'cancelado') DEFAULT 'pendiente',
-    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
-);
+    total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    estado ENUM('pendiente','pagado','enviado','entregado','cancelado') NOT NULL DEFAULT 'pendiente',
+    direccion TEXT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS detalles_pedido (
+CREATE TABLE IF NOT EXISTS orden_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    pedido_id INT NOT NULL,
+    orden_id INT NOT NULL,
     producto_id INT NOT NULL,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
-    FOREIGN KEY (producto_id) REFERENCES productos(id)
-);
+    cantidad INT NOT NULL DEFAULT 1,
+    precio_unitario DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    FOREIGN KEY (orden_id) REFERENCES ordenes(id) ON DELETE CASCADE,
+    FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE RESTRICT
+) ENGINE=InnoDB;
 
--- Insertar usuario admin por defecto (pass: admin123)
-INSERT IGNORE INTO usuarios (nombre, email, password, rol) VALUES 
-('Admin', 'admin@mercashop.com', '$2y$10$wN9X.Z6hGk0OQeG5Jm/N/ee3j5eI9g15J4n2Yh4P5n6Q4X4eY3Tly', 'admin');
+INSERT IGNORE INTO usuarios (nombre, email, password, rol, blink_galaxy) VALUES
+('Admin Local', 'admin@mercashop.local', '$2y$10$KwiFO30Mdh1zAlCbB6xPLuHysNMkMCBZg3atf5lIrnugpNBFzJ3EW', 'admin', 1),
+('Usuario Demo', 'cliente@mercashop.local', '$2y$10$KwiFO30Mdh1zAlCbB6xPLuHysNMkMCBZg3atf5lIrnugpNBFzJ3EW', 'comprador', 0);
 
--- Insertar categorías
-INSERT IGNORE INTO categorias (nombre, slug) VALUES 
-('Tecnología', 'tech'), ('Moda', 'moda'), ('Hogar', 'hogar'), ('Deporte', 'deporte'), ('Gaming', 'gaming');
+INSERT IGNORE INTO categorias (nombre, slug) VALUES
+('Tecnología', 'tech'),
+('Moda', 'moda'),
+('Hogar', 'hogar'),
+('Deporte', 'deporte'),
+('Gaming', 'gaming');
 
--- Insertar productos de ejemplo
-INSERT INTO productos (nombre, precio, precio_original, descuento, stock, emoji, badge, vendedor, categoria_id) VALUES
-('iPhone 15 Pro Max 256GB Titanio', 1199.99, 1399.99, 14, 10, '📱', 'Hot', 'Apple Official', 1),
-('MacBook Air M3 13" 8GB RAM', 1599.00, 1899.00, 16, 5, '💻', 'Nuevo', 'Apple Store AR', 1),
-('Nike Air Max 270 React Blanco/Negro', 149.99, 199.99, 25, 20, '👟', 'Sale', 'Nike Argentina', 2),
-('Smart TV Samsung 55" QLED 4K 2024', 799.00, 999.00, 20, 8, '📺', NULL, 'Samsung Oficial', 1),
-('Silla Gamer RGB Ergonómica Pro X', 289.00, 389.00, 26, 15, '🪑', 'Sale', 'Gaming Zone', 5);
+INSERT IGNORE INTO productos (categoria_id, nombre, descripcion, precio, precio_original, descuento, stock, vendedor, imagen, badge) VALUES
+(1, 'Teléfono Pocket Pro', 'Celular ligero para la red local con excelente batería.', 11999.00, 13999.00, 14, 12, 'PiStore', NULL, 'Hot'),
+(1, 'Auriculares Inalámbricos', 'Sonido claro y cancelación de ruido para reuniones remotas.', 2999.00, 3999.00, 25, 18, 'AudioLab', NULL, 'Sale'),
+(2, 'Zapatillas Urbanas', 'Calzado deportivo con amortiguación extra.', 2499.00, 2999.00, 16, 24, 'DeporteMax', NULL, 'Nuevo'),
+(3, 'Lámpara LED Smart', 'Luz inteligente ideal para estudio y oficina.', 899.00, 1099.00, 18, 30, 'HogarPlus', NULL, ''),
+(4, 'Bicicleta Estática', 'Ejercita en casa con pantalla de entrenamiento.', 7599.00, 8999.00, 15, 10, 'FitHome', NULL, 'Hot');

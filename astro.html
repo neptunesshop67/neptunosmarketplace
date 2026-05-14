@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)file:///C:/Users/HP/Downloads/tienda-online.html -->
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MercaShop — Tu tienda en línea</title>
+  <link href="./astro_files/css2" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #b400ff;
+      --yellow-dark: #D4BE00;
+      --yellow-light: #FFF9C4;
+      --blue-deep: #1a1a2e;
+      --blue-mid: #16213e;
+      --blue-accent: #0f3460;
+      --cyan: #00C6FF;
+      --white: #ffffff;
+      --gray-100: #f7f7f7;
+      --gray-200: #eeeeee;
+      --gray-400: #aaaaaa;
+      --gray-700: #444444;
+      --gray-900: #111111;
+      --green: #00b140;
+      --red: #e74c3c;
+      --orange: #ff6900;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.15);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      min-height: 100vh;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: var(--yellow);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-top {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 64px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--blue-deep);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--blue-accent);
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      max-width: 680px;
+    }
+
+    .search-bar:focus-within {
+      border-color: var(--blue-accent);
+    }
+
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      background: transparent;
+    }
+
+    .search-bar button {
+      background: var(--blue-deep);
+      border: none;
+      padding: 0.6rem 1.1rem;
+      cursor: pointer;
+      color: var(--yellow);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .search-bar button:hover {
+      background: var(--blue-accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+      cursor: pointer;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      transition: var(--transition);
+      text-decoration: none;
+      gap: 2px;
+      position: relative;
+    }
+
+    .nav-btn:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-btn .nav-icon {
+      font-size: 1.3rem;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      background: var(--red);
+      color: white;
+      border-radius: 99px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .nav-bottom {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.4rem 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-bottom::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-cat {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--blue-deep);
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0.2rem 0;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .nav-cat:hover,
+    .nav-cat.active {
+      border-bottom-color: var(--blue-accent);
+      color: var(--blue-accent);
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-accent) 60%, #1a4a8a 100%);
+      padding: 3.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 400px;
+      height: 400px;
+      background: var(--yellow);
+      border-radius: 50%;
+      opacity: 0.07;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 200px;
+      bottom: -80px;
+      width: 250px;
+      height: 250px;
+      background: var(--cyan);
+      border-radius: 50%;
+      opacity: 0.06;
+    }
+
+    .hero-content {
+      max-width: 480px;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--blue-deep);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.9rem;
+      border-radius: 99px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 em {
+      color: var(--yellow);
+      font-style: normal;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--blue-deep);
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary:hover {
+      background: #f0d800;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 230, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      padding: 0.85rem 1.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .hero-phone-mock {
+      width: 200px;
+      height: 320px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      backdrop-filter: blur(10px);
+      position: relative;
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .mock-product {
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+    }
+
+    .mock-line {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .mock-price {
+      color: var(--yellow);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .mock-btn {
+      width: 100%;
+      background: var(--yellow);
+      color: var(--blue-deep);
+      border: none;
+      padding: 0.6rem;
+      border-radius: 8px;
+      font-weight: 700;
+      margin-top: auto;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    /* ===== TRUST STRIP ===== */
+    .trust-strip {
+      background: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .trust-item span {
+      font-size: 1.2rem;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 2.5rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.3px;
+    }
+
+    .section-title .accent {
+      color: var(--blue-accent);
+    }
+
+    .see-all {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--blue-accent);
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--blue-accent);
+      transition: var(--transition);
+    }
+
+    .see-all:hover {
+      opacity: 0.7;
+    }
+
+    /* ===== CATEGORY PILLS ===== */
+    .category-pills {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      padding: 0.5rem 1.1rem;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--gray-700);
+      box-shadow: var(--shadow-card);
+    }
+
+    .pill:hover,
+    .pill.active {
+      background: var(--blue-deep);
+      color: var(--white);
+      border-color: var(--blue-deep);
+      transform: translateY(-2px);
+    }
+
+    .pill .pill-icon {
+      font-size: 1rem;
+    }
+
+    /* ===== PRODUCT GRID ===== */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid transparent;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--gray-200);
+    }
+
+    .product-image-wrap {
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--red);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.22rem 0.6rem;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .product-badge.new {
+      background: var(--green);
+    }
+
+    .product-badge.hot {
+      background: var(--orange);
+    }
+
+    .fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      opacity: 0;
+    }
+
+    .product-card:hover .fav-btn {
+      opacity: 1;
+    }
+
+    .fav-btn:hover {
+      background: #ffe4e4;
+      border-color: #ffaaaa;
+    }
+
+    .fav-btn.active {
+      opacity: 1;
+      color: var(--red);
+      border-color: #ffaaaa;
+      background: #ffe4e4;
+    }
+
+    .product-info {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-seller {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .stars {
+      color: var(--yellow-dark);
+      font-size: 0.75rem;
+    }
+
+    .rating-count {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+    }
+
+    .product-prices {
+      margin-bottom: 0.6rem;
+    }
+
+    .price-original {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+
+    .price-main {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      line-height: 1;
+    }
+
+    .price-discount {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .price-installments {
+      font-size: 0.78rem;
+      color: var(--blue-accent);
+      font-weight: 500;
+    }
+
+    .product-shipping {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+
+    .add-cart-btn {
+      width: 100%;
+      background: var(--blue-deep);
+      color: var(--white);
+      border: none;
+      padding: 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .add-cart-btn:hover {
+      background: var(--blue-accent);
+      transform: scale(1.02);
+    }
+
+    .add-cart-btn.added {
+      background: var(--green);
+    }
+
+    /* ===== BANNER PROMOS ===== */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .promo-card {
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 160px;
+      cursor: pointer;
+      transition: var(--transition);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .promo-card:hover {
+      transform: scale(1.02);
+    }
+
+    .promo-card.blue {
+      background: linear-gradient(135deg, #0f3460 0%, #1a5276 100%);
+    }
+
+    .promo-card.amber {
+      background: linear-gradient(135deg, #b7790a 0%, #e67e22 100%);
+    }
+
+    .promo-card::before {
+      content: attr(data-emoji);
+      position: absolute;
+      right: 1rem;
+      bottom: -10px;
+      font-size: 5rem;
+      opacity: 0.18;
+    }
+
+    .promo-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .promo-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin: 0.4rem 0;
+    }
+
+    .promo-cta {
+      background: var(--yellow);
+      color: var(--blue-deep);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: fit-content;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .promo-cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== DEALS STRIP ===== */
+    .deals-strip {
+      background: var(--blue-deep);
+      margin: 0 -2rem;
+      padding: 2rem;
+    }
+
+    .deals-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .deals-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--yellow);
+    }
+
+    .countdown {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .count-unit {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .count-sep {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .deal-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .deal-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .deal-emoji {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .deal-name {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .deal-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .deal-off {
+      font-size: 0.72rem;
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    .deal-bar-wrap {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+    }
+
+    .deal-bar {
+      height: 100%;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+    /* ===== CART MODAL ===== */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .cart-overlay.open {
+      display: flex;
+    }
+
+    .cart-panel {
+      background: var(--white);
+      width: 400px;
+      max-width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+      animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .cart-header {
+      background: var(--yellow);
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--blue-deep);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .close-btn:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      align-items: center;
+    }
+
+    .cart-item-emoji {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+    }
+
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-weight: 700;
+    }
+
+    .qty-btn:hover {
+      background: var(--gray-100);
+      border-color: var(--gray-400);
+    }
+
+    .qty-num {
+      font-size: 0.9rem;
+      font-weight: 700;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .remove-item {
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--gray-400);
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      transition: var(--transition);
+    }
+
+    .remove-item:hover {
+      color: var(--red);
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gray-400);
+    }
+
+    .cart-empty .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .cart-empty p {
+      font-size: 0.95rem;
+    }
+
+    .cart-footer {
+      padding: 1.2rem 1.5rem;
+      border-top: 2px solid var(--gray-100);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .total-label {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+    }
+
+    .total-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--blue-deep);
+      color: var(--white);
+      border: none;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .checkout-btn:hover {
+      background: var(--blue-accent);
+    }
+
+    /* ===== LOGIN MODAL ===== */
+    .login-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-overlay.open {
+      display: flex;
+    }
+
+    .login-panel {
+      background: var(--white);
+      width: 400px;
+      max-width: 90vw;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: popIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .login-header {
+      background: var(--yellow);
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .login-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .login-body {
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .form-group input {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .form-group input:focus {
+      border-color: var(--blue-accent);
+    }
+
+    .login-btn {
+      background: var(--blue-deep);
+      color: var(--white);
+      border: none;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'DM Sans', sans-serif;
+      margin-top: 0.5rem;
+    }
+
+    .login-btn:hover {
+      background: var(--blue-accent);
+    }
+
+    .login-footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--gray-700);
+      padding-bottom: 2rem;
+    }
+
+    .login-footer a {
+      color: var(--blue-accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ===== FAV MODAL ===== */
+    .fav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .fav-overlay.open {
+      display: flex;
+    }
+
+    .fav-panel {
+      background: var(--white);
+      width: 400px;
+      max-width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+      animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fav-header {
+      background: var(--yellow);
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fav-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .fav-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .toast {
+      background: var(--blue-deep);
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 2.2s forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes toastOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--blue-deep);
+      color: rgba(255, 255, 255, 0.65);
+      padding: 3rem 2rem 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto 2rem;
+    }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--yellow);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.83rem;
+      margin-bottom: 0.5rem;
+      color: rgba(255, 255, 255, 0.55);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.35);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        padding: 2rem 1.2rem;
+        min-height: auto;
+      }
+
+      .hero-image {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .promo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-top {
+        padding: 0 0.5rem;
+        gap: 0.6rem;
+      }
+
+      .logo {
+        font-size: 1.1rem;
+      }
+
+      .section {
+        padding: 1.5rem 1rem;
+      }
+
+      .deals-strip {
+        margin: 0 -1rem;
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-top">
+      <a href="index.php" class="logo">Merca<span>Shop</span></a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar productos, marcas y más...">
+        <button onclick="doSearch()">🔍</button>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn" onclick="openCart()">
+          <span class="nav-icon">🛒</span>
+          <span>Carrito</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="nav-btn" onclick="openFavorites()">
+          <span class="nav-icon">❤️</span>
+          <span>Favoritos</span>
+        </button>
+        <button class="nav-btn" onclick="openLogin()">
+          <span class="nav-icon">👤</span>
+          <span>Ingresar</span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <a href="index.php" class="nav-cat active">📦 Todas las categorías</a>
+      <a href="index.php" class="nav-cat">📱 Tecnología</a>
+      <a href="index.php" class="nav-cat">👗 Moda</a>
+      <a href="index.php" class="nav-cat">🏠 Hogar</a>
+      <a href="index.php" class="nav-cat">⚽ Deporte</a>
+      <a href="index.php" class="nav-cat">🎮 Gaming</a>
+      <a href="index.php" class="nav-cat">🚗 Autos</a>
+      <a href="index.php" class="nav-cat">🎁 Ofertas</a>
+      <a href="index.php" class="nav-cat">⭐ Top ventas</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🔥 Mega Oferta — Hasta 60% OFF</div>
+      <h1>Compra con <em>confianza</em>, entrega garantizada</h1>
+      <p>Millones de productos con envío gratis. Paga como quieras: tarjeta, efectivo o hasta 24 cuotas sin interés.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="scrollToProducts()">Ver ofertas del día</button>
+        <button class="btn-secondary">Cómo funciona →</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-phone-mock">
+        <div class="mock-product">📱</div>
+        <div class="mock-line" style="width:100%"></div>
+        <div class="mock-line" style="width:70%"></div>
+        <div class="mock-price">$ 799.99</div>
+        <button class="mock-btn">Comprar ahora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST STRIP ===== -->
+  <div class="trust-strip">
+    <div class="trust-item"><span>🚚</span> Envío gratis en miles de productos</div>
+    <div class="trust-item"><span>🔒</span> Compra 100% segura</div>
+    <div class="trust-item"><span>💳</span> Hasta 24 cuotas sin interés</div>
+    <div class="trust-item"><span>↩️</span> Devolución sin preguntas</div>
+    <div class="trust-item"><span>⭐</span> Atención 24/7</div>
+  </div>
+
+  <!-- ===== CATEGORÍAS ===== -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Explorar por <span class="accent">categoría</span></h2>
+      <a href="file:///C:/Users/HP/Downloads/tienda-online.html#" class="see-all">Ver todas →</a>
+    </div>
+    <div class="category-pills">
+      <div class="pill active" onclick="filterCategory('all')"><span class="pill-icon">🛒</span> Todo</div>
+      <div class="pill" onclick="filterCategory('tech')"><span class="pill-icon">📱</span> Tecnología</div>
+      <div class="pill" onclick="filterCategory('moda')"><span class="pill-icon">👗</span> Moda</div>
+      <div class="pill" onclick="filterCategory('hogar')"><span class="pill-icon">🏠</span> Hogar</div>
+      <div class="pill" onclick="filterCategory('deporte')"><span class="pill-icon">⚽</span> Deporte</div>
+      <div class="pill" onclick="filterCategory('gaming')"><span class="pill-icon">🎮</span> Gaming</div>
+      <div class="pill" onclick="filterCategory('autos')"><span class="pill-icon">🚗</span> Autos</div>
+      <div class="pill" onclick="filterCategory('mascotas')"><span class="pill-icon">🐾</span> Mascotas</div>
+    </div>
+
+    <!-- BANNERS PROMO -->
+    <div class="promo-grid">
+      <div class="promo-card blue" data-emoji="💻" onclick="showToast('¡Abriendo ofertas de tecnología!')">
+        <div>
+          <div class="promo-label">Semana Tech</div>
+          <div class="promo-title">Laptops y PCs<br>hasta 45% OFF</div>
+        </div>
+        <button class="promo-cta">Ver ofertas</button>
+      </div>
+      <div class="promo-card amber" data-emoji="👟" onclick="showToast('¡Abriendo moda y calzado!')">
+        <div>
+          <div class="promo-label">Moda &amp; Estilo</div>
+          <div class="promo-title">Zapatillas<br>de temporada</div>
+        </div>
+        <button class="promo-cta">Comprar ahora</button>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="section-header">
+      <h2 class="section-title" id="productsTitle">Más <span class="accent">vendidos</span></h2>
+      <a href="file:///C:/Users/HP/Downloads/tienda-online.html#" class="see-all">Ver todos →</a>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <div class="product-card" onclick="viewProduct(1)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">📱</span>
+          <div class="product-badge hot">Hot</div>
+          <button class="fav-btn " onclick="toggleFav(event,1)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Apple Official</div>
+          <div class="product-name">iPhone 15 Pro Max 256GB Titanio</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(2,341)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$1399.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$1199.99</div>
+              <div class="price-discount">-14%</div>
+            </div>
+            <div class="price-installments">o 50x $24.00 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,1)" id="btn-1">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(2)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">💻</span>
+          <div class="product-badge new">Nuevo</div>
+          <button class="fav-btn " onclick="toggleFav(event,2)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Apple Store AR</div>
+          <div class="product-name">MacBook Air M3 13" 8GB RAM</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(891)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$1899.00</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$1599.00</div>
+              <div class="price-discount">-16%</div>
+            </div>
+            <div class="price-installments">o 24x $66.63 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,2)" id="btn-2">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(3)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">👟</span>
+          <div class="product-badge ">Sale</div>
+          <button class="fav-btn " onclick="toggleFav(event,3)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Nike Argentina</div>
+          <div class="product-name">Nike Air Max 270 React Blanco/Negro</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(5,632)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$199.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$149.99</div>
+              <div class="price-discount">-25%</div>
+            </div>
+            <div class="price-installments">o 12x $12.50 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,3)" id="btn-3">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(4)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">📺</span>
+
+          <button class="fav-btn " onclick="toggleFav(event,4)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Samsung Oficial</div>
+          <div class="product-name">Smart TV Samsung 55" QLED 4K 2024</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(3,210)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$999.00</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$799.00</div>
+              <div class="price-discount">-20%</div>
+            </div>
+            <div class="price-installments">o 24x $33.29 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,4)" id="btn-4">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(5)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🎧</span>
+          <div class="product-badge hot">Hot</div>
+          <button class="fav-btn " onclick="toggleFav(event,5)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Sony Store</div>
+          <div class="product-name">Auriculares Sony WH-1000XM5 Noise Cancelling</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(7,812)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$449.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$349.99</div>
+              <div class="price-discount">-22%</div>
+            </div>
+            <div class="price-installments">o 18x $19.44 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,5)" id="btn-5">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(6)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🪑</span>
+          <div class="product-badge ">Sale</div>
+          <button class="fav-btn " onclick="toggleFav(event,6)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Gaming Zone</div>
+          <div class="product-name">Silla Gamer RGB Ergonómica Pro X</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(1,203)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$389.00</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$289.00</div>
+              <div class="price-discount">-26%</div>
+            </div>
+            <div class="price-installments">o 12x $24.08 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,6)" id="btn-6">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(7)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🏋️</span>
+
+          <button class="fav-btn " onclick="toggleFav(event,7)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Fitness Pro</div>
+          <div class="product-name">Set de Pesas Ajustables 20kg Premium</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(876)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$139.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$99.99</div>
+              <div class="price-discount">-29%</div>
+            </div>
+            <div class="price-installments">o 6x $16.67 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,7)" id="btn-7">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(8)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">📸</span>
+          <div class="product-badge new">Nuevo</div>
+          <button class="fav-btn " onclick="toggleFav(event,8)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Photo Expert</div>
+          <div class="product-name">Cámara Sony Alpha ZV-E10 con Lente 16-50mm</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(2,109)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$849.00</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$699.00</div>
+              <div class="price-discount">-18%</div>
+            </div>
+            <div class="price-installments">o 24x $29.13 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,8)" id="btn-8">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(9)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🤖</span>
+          <div class="product-badge ">Sale</div>
+          <button class="fav-btn " onclick="toggleFav(event,9)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">iRobot AR</div>
+          <div class="product-name">Aspiradora Robot Roomba i7+ Mapeado</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(1,432)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$699.00</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$499.00</div>
+              <div class="price-discount">-29%</div>
+            </div>
+            <div class="price-installments">o 18x $27.72 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,9)" id="btn-9">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(10)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🎮</span>
+          <div class="product-badge hot">Hot</div>
+          <button class="fav-btn " onclick="toggleFav(event,10)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Sony Gamer</div>
+          <div class="product-name">PlayStation 5 Edición Digital + 2 Controles</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(9,845)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$649.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$549.99</div>
+              <div class="price-discount">-15%</div>
+            </div>
+            <div class="price-installments">o 24x $22.92 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,10)" id="btn-10">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(11)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">🏃</span>
+
+          <button class="fav-btn " onclick="toggleFav(event,11)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Adidas Oficial</div>
+          <div class="product-name">Zapatillas Adidas Ultraboost 22 Correr</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(3,298)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$229.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$179.99</div>
+              <div class="price-discount">-22%</div>
+            </div>
+            <div class="price-installments">o 12x $15.00 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,11)" id="btn-11">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="viewProduct(12)">
+        <div class="product-image-wrap">
+          <span style="font-size:4rem">📋</span>
+          <div class="product-badge new">Nuevo</div>
+          <button class="fav-btn " onclick="toggleFav(event,12)" title="Guardar">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-seller">Apple Argentina</div>
+          <div class="product-name">Tablet iPad 10ma Gen 64GB WiFi</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">(4,521)</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-original">$549.99</div>
+            <div style="display:flex; align-items:baseline; gap:0.4rem">
+              <div class="price-main">$449.99</div>
+              <div class="price-discount">-18%</div>
+            </div>
+            <div class="price-installments">o 18x $25.00 sin interés</div>
+          </div>
+          <div class="product-shipping">✅ Envío gratis</div>
+          <button class="add-cart-btn " onclick="addToCart(event,12)" id="btn-12">
+            🛒 Agregar al carrito
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DEALS STRIP ===== -->
+  <div class="section">
+    <div class="deals-strip">
+      <div class="deals-header">
+        <div class="deals-title">⚡ Ofertas del día</div>
+        <div class="countdown">
+          <div class="count-unit" id="hours">04</div>
+          <span class="count-sep">:</span>
+          <div class="count-unit" id="minutes">02</div>
+          <span class="count-sep">:</span>
+          <div class="count-unit" id="seconds">19</div>
+        </div>
+      </div>
+      <div class="deals-grid" id="dealsGrid">
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">⌚</div>
+          <div class="deal-name">Apple Watch Series 9</div>
+          <div class="deal-price">$299</div>
+          <div class="deal-off">↓ 35% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:60%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">60% vendido</div>
+        </div>
+
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">🖥️</div>
+          <div class="deal-name">Monitor LG 27" IPS 4K</div>
+          <div class="deal-price">$349</div>
+          <div class="deal-off">↓ 28% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:45%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">45% vendido</div>
+        </div>
+
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">🎒</div>
+          <div class="deal-name">Mochila Samsonite Pro</div>
+          <div class="deal-price">$89</div>
+          <div class="deal-off">↓ 40% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:75%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">75% vendido</div>
+        </div>
+
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">🔊</div>
+          <div class="deal-name">JBL Charge 5 Speaker</div>
+          <div class="deal-price">$149</div>
+          <div class="deal-off">↓ 20% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:30%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">30% vendido</div>
+        </div>
+
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">💊</div>
+          <div class="deal-name">Smart Watch Fit 3 NFC</div>
+          <div class="deal-price">$79</div>
+          <div class="deal-off">↓ 50% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:80%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">80% vendido</div>
+        </div>
+
+        <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+          <div class="deal-emoji">🖱️</div>
+          <div class="deal-name">Mouse Razer DeathAdder</div>
+          <div class="deal-price">$59</div>
+          <div class="deal-off">↓ 33% OFF</div>
+          <div class="deal-bar-wrap">
+            <div class="deal-bar" style="width:55%"></div>
+          </div>
+          <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">55% vendido</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">MercaShop</div>
+        <p style="font-size:0.82rem; line-height:1.6; color:rgba(255,255,255,0.45);">Tu marketplace de confianza. Comprá
+          y vendé con total seguridad desde cualquier dispositivo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Comprador</h4>
+        <a href="ayuda.php">Cómo comprar</a>
+        <a href="ayuda.php">Medios de pago</a>
+        <a href="ayuda.php">Envíos y entregas</a>
+        <a href="ayuda.php">Devoluciones</a>
+        <a href="terminos.php">Seguridad</a>
+      </div>
+      <div class="footer-col">
+        <h4>Vendedor</h4>
+        <a href="admin/index.php">Vender en MercaShop</a>
+        <a href="admin/index.php">Costos y comisiones</a>
+        <a href="admin/index.php">Publicar gratis</a>
+        <a href="admin/index.php">Herramientas</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ayuda</h4>
+        <a href="ayuda.php">Centro de ayuda</a>
+        <a href="ayuda.php">Chat en vivo</a>
+        <a href="ayuda.php">Reclamos</a>
+        <a href="terminos.php">Términos y condiciones</a>
+        <a href="terminos.php">Privacidad</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 MercaShop — Todos los derechos reservados. Compra con confianza.</div>
+  </footer>
+
+  <!-- ===== CART ===== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="handleOverlayClick(event)">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h2>🛒 Mi carrito</h2>
+        <button class="close-btn" onclick="closeCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer" id="cartFooter" style="display:none">
+        <div class="cart-total">
+          <span class="total-label">Total a pagar:</span>
+          <span class="total-amount" id="totalAmount">$0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Ir a pagar →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LOGIN MODAL ===== -->
+  <div class="login-overlay" id="loginOverlay" onclick="handleLoginClick(event)">
+    <div class="login-panel">
+      <div class="login-header">
+        <h2>👤 Iniciar sesión</h2>
+        <button class="close-btn" onclick="closeLogin()">✕</button>
+      </div>
+      <div class="login-body">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="ejemplo@correo.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <button class="login-btn" onclick="doLogin()">Ingresar</button>
+      </div>
+      <div class="login-footer">
+        ¿No tienes cuenta? <a href="#">Regístrate</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FAVORITES MODAL ===== -->
+  <div class="fav-overlay" id="favOverlay" onclick="handleFavClick(event)">
+    <div class="fav-panel">
+      <div class="fav-header">
+        <h2>❤️ Mis Favoritos</h2>
+        <button class="close-btn" onclick="closeFavorites()">✕</button>
+      </div>
+      <div class="fav-items" id="favItems"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const products = [
+      { id: 1, name: 'iPhone 15 Pro Max 256GB Titanio', emoji: '📱', seller: 'Apple Official', price: 1199.99, original: 1399.99, discount: 14, rating: 4.8, reviews: 2341, shipping: 'Envío gratis', badge: 'Hot', category: 'tech', installments: '50x $24.00' },
+      { id: 2, name: 'MacBook Air M3 13" 8GB RAM', emoji: '💻', seller: 'Apple Store AR', price: 1599.00, original: 1899.00, discount: 16, rating: 4.9, reviews: 891, shipping: 'Envío gratis', badge: 'Nuevo', category: 'tech', installments: '24x $66.63' },
+      { id: 3, name: 'Nike Air Max 270 React Blanco/Negro', emoji: '👟', seller: 'Nike Argentina', price: 149.99, original: 199.99, discount: 25, rating: 4.6, reviews: 5632, shipping: 'Envío gratis', badge: 'Sale', category: 'moda', installments: '12x $12.50' },
+      { id: 4, name: 'Smart TV Samsung 55" QLED 4K 2024', emoji: '📺', seller: 'Samsung Oficial', price: 799.00, original: 999.00, discount: 20, rating: 4.7, reviews: 3210, shipping: 'Envío gratis', badge: null, category: 'tech', installments: '24x $33.29' },
+      { id: 5, name: 'Auriculares Sony WH-1000XM5 Noise Cancelling', emoji: '🎧', seller: 'Sony Store', price: 349.99, original: 449.99, discount: 22, rating: 4.9, reviews: 7812, shipping: 'Envío gratis', badge: 'Hot', category: 'tech', installments: '18x $19.44' },
+      { id: 6, name: 'Silla Gamer RGB Ergonómica Pro X', emoji: '🪑', seller: 'Gaming Zone', price: 289.00, original: 389.00, discount: 26, rating: 4.5, reviews: 1203, shipping: 'Envío gratis', badge: 'Sale', category: 'gaming', installments: '12x $24.08' },
+      { id: 7, name: 'Set de Pesas Ajustables 20kg Premium', emoji: '🏋️', seller: 'Fitness Pro', price: 99.99, original: 139.99, discount: 29, rating: 4.4, reviews: 876, shipping: 'Envío gratis', badge: null, category: 'deporte', installments: '6x $16.67' },
+      { id: 8, name: 'Cámara Sony Alpha ZV-E10 con Lente 16-50mm', emoji: '📸', seller: 'Photo Expert', price: 699.00, original: 849.00, discount: 18, rating: 4.8, reviews: 2109, shipping: 'Envío gratis', badge: 'Nuevo', category: 'tech', installments: '24x $29.13' },
+      { id: 9, name: 'Aspiradora Robot Roomba i7+ Mapeado', emoji: '🤖', seller: 'iRobot AR', price: 499.00, original: 699.00, discount: 29, rating: 4.7, reviews: 1432, shipping: 'Envío gratis', badge: 'Sale', category: 'hogar', installments: '18x $27.72' },
+      { id: 10, name: 'PlayStation 5 Edición Digital + 2 Controles', emoji: '🎮', seller: 'Sony Gamer', price: 549.99, original: 649.99, discount: 15, rating: 4.9, reviews: 9845, shipping: 'Envío gratis', badge: 'Hot', category: 'gaming', installments: '24x $22.92' },
+      { id: 11, name: 'Zapatillas Adidas Ultraboost 22 Correr', emoji: '🏃', seller: 'Adidas Oficial', price: 179.99, original: 229.99, discount: 22, rating: 4.7, reviews: 3298, shipping: 'Envío gratis', badge: null, category: 'deporte', installments: '12x $15.00' },
+      { id: 12, name: 'Tablet iPad 10ma Gen 64GB WiFi', emoji: '📋', seller: 'Apple Argentina', price: 449.99, original: 549.99, discount: 18, rating: 4.8, reviews: 4521, shipping: 'Envío gratis', badge: 'Nuevo', category: 'tech', installments: '18x $25.00' },
+    ];
+
+    const deals = [
+      { emoji: '⌚', name: 'Apple Watch Series 9', price: '$299', off: '35%', bar: 60 },
+      { emoji: '🖥️', name: 'Monitor LG 27" IPS 4K', price: '$349', off: '28%', bar: 45 },
+      { emoji: '🎒', name: 'Mochila Samsonite Pro', price: '$89', off: '40%', bar: 75 },
+      { emoji: '🔊', name: 'JBL Charge 5 Speaker', price: '$149', off: '20%', bar: 30 },
+      { emoji: '💊', name: 'Smart Watch Fit 3 NFC', price: '$79', off: '50%', bar: 80 },
+      { emoji: '🖱️', name: 'Mouse Razer DeathAdder', price: '$59', off: '33%', bar: 55 },
+    ];
+
+    let cart = {};
+    let favorites = new Set();
+    let currentCategory = 'all';
+
+    function getFilteredProducts() {
+      return currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      const filtered = getFilteredProducts();
+      grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="viewProduct(${p.id})">
+      <div class="product-image-wrap">
+        <span style="font-size:4rem">${p.emoji}</span>
+        ${p.badge ? `<div class="product-badge ${p.badge === 'Nuevo' ? 'new' : p.badge === 'Hot' ? 'hot' : ''}">${p.badge}</div>` : ''}
+        <button class="fav-btn ${favorites.has(p.id) ? 'active' : ''}" onclick="toggleFav(event,${p.id})" title="Guardar">${favorites.has(p.id) ? '❤️' : '🤍'}</button>
+      </div>
+      <div class="product-info">
+        <div class="product-seller">${p.seller}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-rating">
+          <span class="stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5 - Math.floor(p.rating))}</span>
+          <span class="rating-count">(${p.reviews.toLocaleString()})</span>
+        </div>
+        <div class="product-prices">
+          <div class="price-original">$${p.original.toFixed(2)}</div>
+          <div style="display:flex; align-items:baseline; gap:0.4rem">
+            <div class="price-main">$${p.price.toFixed(2)}</div>
+            <div class="price-discount">-${p.discount}%</div>
+          </div>
+          <div class="price-installments">o ${p.installments} sin interés</div>
+        </div>
+        <div class="product-shipping">✅ ${p.shipping}</div>
+        <button class="add-cart-btn ${cart[p.id] ? 'added' : ''}" onclick="addToCart(event,${p.id})" id="btn-${p.id}">
+          ${cart[p.id] ? '✅ En el carrito' : '🛒 Agregar al carrito'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function renderDeals() {
+      const grid = document.getElementById('dealsGrid');
+      grid.innerHTML = deals.map(d => `
+    <div class="deal-card" onclick="showToast('¡Oferta agregada al carrito!')">
+      <div class="deal-emoji">${d.emoji}</div>
+      <div class="deal-name">${d.name}</div>
+      <div class="deal-price">${d.price}</div>
+      <div class="deal-off">↓ ${d.off} OFF</div>
+      <div class="deal-bar-wrap"><div class="deal-bar" style="width:${d.bar}%"></div></div>
+      <div style="font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:3px">${d.bar}% vendido</div>
+    </div>
+  `).join('');
+    }
+
+    function addToCart(e, id) {
+      e.stopPropagation();
+      const product = products.find(p => p.id === id);
+      if (!cart[id]) { cart[id] = { ...product, qty: 0 }; }
+      cart[id].qty++;
+      updateCartUI();
+      const btn = document.getElementById('btn-' + id);
+      if (btn) {
+        btn.textContent = '✅ En el carrito';
+        btn.classList.add('added');
+      }
+      showToast(`✅ "${product.name.substring(0, 30)}..." agregado`);
+    }
+
+    function updateCartUI() {
+      const total = Object.values(cart).reduce((a, c) => a + c.qty, 0);
+      document.getElementById('cartBadge').textContent = total;
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cartItems');
+      const footer = document.getElementById('cartFooter');
+      const entries = Object.values(cart).filter(c => c.qty > 0);
+      if (entries.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><div class="empty-icon">🛒</div><p>Tu carrito está vacío.<br>¡Agregá productos!</p></div>`;
+        footer.style.display = 'none';
+        return;
+      }
+      footer.style.display = 'block';
+      container.innerHTML = entries.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${item.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name.substring(0, 40)}...</div>
+        <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+      </div>
+      <div class="cart-qty">
+        <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+      </div>
+      <button class="remove-item" onclick="removeItem(${item.id})" title="Eliminar">🗑️</button>
+    </div>
+  `).join('');
+      const subtotal = entries.reduce((a, c) => a + c.price * c.qty, 0);
+      document.getElementById('totalAmount').textContent = '$' + subtotal.toFixed(2);
+    }
+
+    function changeQty(id, delta) {
+      if (!cart[id]) return;
+      cart[id].qty += delta;
+      if (cart[id].qty <= 0) { delete cart[id]; }
+      updateCartUI();
+      const btn = document.getElementById('btn-' + id);
+      if (btn && !cart[id]) {
+        btn.textContent = '🛒 Agregar al carrito';
+        btn.classList.remove('added');
+      }
+    }
+
+    function removeItem(id) {
+      delete cart[id];
+      updateCartUI();
+      const btn = document.getElementById('btn-' + id);
+      if (btn) { btn.textContent = '🛒 Agregar al carrito'; btn.classList.remove('added'); }
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById('cartOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('cartOverlay')) closeCart();
+    }
+
+    function openLogin() {
+      window.location.href = 'login.php';
+    }
+
+    function closeLogin() {
+      document.getElementById('loginOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleLoginClick(e) {
+      if (e.target === document.getElementById('loginOverlay')) closeLogin();
+    }
+
+    function doLogin() {
+      showToast('🎉 ¡Has iniciado sesión con éxito!');
+      setTimeout(() => { closeLogin(); }, 1200);
+    }
+
+    function renderFavs() {
+      const container = document.getElementById('favItems');
+      const favArray = Array.from(favorites);
+      if (favArray.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><div class="empty-icon">❤️</div><p>Aún no tienes favoritos.<br>¡Guarda los que te gusten!</p></div>`;
+        return;
+      }
+      container.innerHTML = favArray.map(id => {
+        const item = products.find(p => p.id === id);
+        return `
+          <div class="cart-item">
+            <div class="cart-item-emoji">${item.emoji}</div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name.substring(0, 40)}...</div>
+              <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+            </div>
+            <button class="remove-item" onclick="toggleFav(event, ${item.id}); renderFavs();" title="Eliminar">🗑️</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openFavorites() {
+      renderFavs();
+      document.getElementById('favOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFavorites() {
+      document.getElementById('favOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleFavClick(e) {
+      if (e.target === document.getElementById('favOverlay')) closeFavorites();
+    }
+
+    function checkout() {
+      window.location.href = 'checkout.php';
+    }
+
+    function toggleFav(e, id) {
+      e.stopPropagation();
+      if (favorites.has(id)) { favorites.delete(id); showToast('💔 Eliminado de favoritos'); }
+      else { favorites.add(id); showToast('❤️ Guardado en favoritos'); }
+      renderProducts();
+    }
+
+    function viewProduct(id) {
+      window.location.href = 'producto.php?id=' + id;
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.pill').forEach((el, i) => {
+        el.classList.toggle('active', (i === 0 && cat === 'all') || el.textContent.trim().toLowerCase().includes(cat));
+      });
+      const titles = { all: 'Más vendidos', tech: 'Tecnología', moda: 'Moda & Estilo', hogar: 'Hogar & Deco', deporte: 'Deporte', gaming: 'Gaming', autos: 'Automotor', mascotas: 'Mascotas' };
+      document.getElementById('productsTitle').innerHTML = `${titles[cat] || 'Productos'} <span class="accent">destacados</span>`;
+      renderProducts();
+    }
+
+    function doSearch() {
+      const q = document.getElementById('searchInput').value.trim();
+      if (!q) return;
+      showToast(`🔍 Buscando: "${q}"...`);
+    }
+
+    document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+
+    function scrollToProducts() {
+      document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showToast(msg) {
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.getElementById('toastContainer').appendChild(el);
+      setTimeout(() => el.remove(), 2600);
+    }
+
+    // Countdown
+    let secs = 4 * 3600 + 23 * 60 + 58;
+    function tick() {
+      secs--;
+      if (secs < 0) secs = 86399;
+      const h = String(Math.floor(secs / 3600)).padStart(2, '0');
+      const m = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
+      const s = String(secs % 60).padStart(2, '0');
+      document.getElementById('hours').textContent = h;
+      document.getElementById('minutes').textContent = m;
+      document.getElementById('seconds').textContent = s;
+    }
+    setInterval(tick, 1000);
+
+    // Nav category click
+    document.querySelectorAll('.nav-cat').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-cat').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+      });
+    });
+
+    renderProducts();
+    renderDeals();
+  </script>
+
+
+</body>
+
+</html>
